@@ -22,10 +22,13 @@
 
 #import "AnimatedGIFImageSerialization.h"
 
+#import <TargetConditionals.h>
+#if TARGET_OS_IPHONE
 @import ImageIO;
 @import MobileCoreServices;
+#endif
 
-NS_ASSUME_NONNULL_BEGIN
+ 
 
 typedef NS_ENUM(NSInteger, AnimatedGifScreenType) {
     AnimatedGifScreenType480h = 480, // iPhone 1, 2, 3, 4, 4s
@@ -42,6 +45,7 @@ static NSString * const AnimatedGifScreenTypeSuffix736h = @"-736h";
 
 NSString * const AnimatedGIFImageErrorDomain = @"com.compuserve.gif.image.error";
 
+#if TARGET_OS_IPHONE
 __attribute__((overloadable)) UIImage * _Nullable UIImageWithAnimatedGIFData(NSData *data) {
     return UIImageWithAnimatedGIFData(data, [[UIScreen mainScreen] scale], 0.0, nil);
 }
@@ -194,8 +198,7 @@ __attribute__((overloadable)) NSData * _Nullable UIImageAnimatedGIFRepresentatio
 }
 
 @end
-
-NS_ASSUME_NONNULL_END
+ 
 
 #pragma mark -
 
@@ -234,7 +237,7 @@ static inline void animated_gif_swizzleSelector(Class class, SEL originalSelecto
 
 #pragma mark -
 
-NS_ASSUME_NONNULL_BEGIN
+ 
 
 + (UIImage * _Nullable)animated_gif_imageNamed:(NSString *)name __attribute__((objc_method_family(new))) {
     CGFloat scale = [[UIScreen mainScreen] scale];
@@ -361,7 +364,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 @end
+ 
 
-NS_ASSUME_NONNULL_END
-
-#endif
+#endif // ANIMATED_GIF_NO_UIIMAGE_INITIALIZER_SWIZZLING
+#endif // TARGET_OS_IPHONE
