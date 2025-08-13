@@ -1,0 +1,8 @@
+module AnimatedGIFImageSerialization {
+  umbrella header "AnimatedGIFImageSerialization.h"
+  link framework "ImageIO"
+  link framework "MobileCoreServices"
+  link framework "CoreGraphics"
+  link framework "UIKit"
+  export *
+}
